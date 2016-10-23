@@ -1,6 +1,6 @@
 class Tenant < ActiveRecord::Base
 
-   acts_as_universal_and_determines_tenant
+  acts_as_universal_and_determines_tenant
   has_many :members, dependent: :destroy
   validates :name, presence: true, uniqueness: {case_sensitive: false}
 
