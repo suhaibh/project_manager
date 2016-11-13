@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   belongs_to :tenant
+  has_many 	:artifacts, dependent: :destroy
   validates :title, presence: true, uniqueness: {case_sensitive: false}
   validates :details, presence: true
   validates :expected_completion_date, presence: true

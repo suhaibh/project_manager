@@ -46,7 +46,7 @@ class Tenant < ActiveRecord::Base
     end
 
     def can_create_project?
-      (plan == 'free' && projects.count < 1) || plan == "premium"
+      (plan == 'free' && projects.count < 1) || (plan == "premium")
     end
 
    
