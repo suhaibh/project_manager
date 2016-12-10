@@ -26,6 +26,7 @@ gem 'devise'
 gem 'milia'
 gem 'aws-sdk'
 gem 'figaro'
+gem 'stripe'
 
 gem 'twitter-bootstrap-rails'
 gem 'devise-bootstrap-views'
