@@ -1,6 +1,9 @@
 class Project < ActiveRecord::Base
   belongs_to :tenant
   has_many 	:artifacts, dependent: :destroy
+  has_many :user_projects
+  has_many :users, through: :user_projects
+  
   validates :title, presence: true, uniqueness: {case_sensitive: false}
   validates :details, presence: true
   validates :expected_completion_date, presence: true
@@ -12,12 +15,20 @@ class Project < ActiveRecord::Base
   	end
   end
 
-  def self.by_plan_and_tenant(tenant_id)
+  def self.by_user_plan_and_tenant(tenant_id, user)
   	tenant = Tenant.find(tenant_id)
   	if tenant.plan == 'premium'
-  		tenant.projects
+  		if user.is_admin?
+        tenant.projects
+      else
+        user.projects.where(tenant_id: tenant.id)
+      end
   	else
-  		tenant.projects.order(:id).limit(1)
+      if user.is_admin?
+  		  tenant.projects.order(:id).limit(1)
+      else
+        user.projects.where(tenant_id: tenant.id).order(:id).limit(1)
+      end
   	end
   end
 end

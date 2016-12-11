@@ -1,0 +1,40 @@
+ <div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <%= link_to "ProjectManager", root_path, class: "navbar-brand"%>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-right col-md-4">
+          <% if current_user && current_user.is_admin? %>
+            
+            <li class="col-md-4">
+              <%= link_to "Add Member", new_member_path, class: "btn btn-primary btn-xs" %>
+            </li>
+            
+            <li class="col-md-4">
+              <%= link_to "Edit Plan", edit_plan_path, class: 'btn btn-primary btn-xs' %>
+            </li>
+
+          <% end %>
+            
+          <% if current_user %>
+              <li class="logout col-md-4"><%= link_to('Logout', destroy_user_session_path, 
+                class: 'btn btn-xs btn-danger', title: 'Logout', :method => :delete) %>
+              </li>
+
+              <li class="user-name col-md-4"> <%= link_to ('<i class="fa fa-user"></i> '+ truncate(current_user.email, length: 25)).html_safe, edit_user_registration_path, title: 'Edit Profile' %>
+              </li>
+          
+          <% else %>
+            <li class="pull-right">
+              <%= link_to('Sign In', new_user_session_path, class: 'btn btn-primary', title: 'Sign In') %>
+            </li>
+
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
